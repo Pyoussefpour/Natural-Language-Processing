@@ -1,0 +1,122 @@
+First I ran the performed the DTW analysis with the given time staps. The following is the result for each speaker
+Reference Speaker: Speaker #1
+Speaker #2: DTW = 2134.6151
+Speaker #3: DTW = 6704.9238
+Speaker #4: DTW = 3189.5733
+Speaker #5: DTW = 3345.2380
+
+Reference Speaker: Speaker #2
+Speaker #1: DTW = 2134.6151
+Speaker #3: DTW = 6581.0701
+Speaker #4: DTW = 3246.9998
+Speaker #5: DTW = 3890.5287
+
+wolf:~/a3/Code$ python3 a3_dtw.py
+Reference Speaker: Speaker #3
+Speaker #1: DTW = 6704.9238
+Speaker #2: DTW = 6581.0701
+Speaker #4: DTW = 5595.5161
+Speaker #5: DTW = 7169.1162
+
+Reference Speaker: Speaker #4
+Speaker #1: DTW = 3189.5733
+Speaker #2: DTW = 3246.9998
+Speaker #3: DTW = 5595.5161
+Speaker #5: DTW = 4459.6315
+
+Reference Speaker: Speaker #5
+Speaker #1: DTW = 3345.2380
+Speaker #2: DTW = 3890.5287
+Speaker #3: DTW = 7169.1162
+Speaker #4: DTW = 4459.6315
+
+Next, I created a python code that created a cropped audio file based on inputted speaker and timestamps, so that
+I could easily listen to the audio files that were being analyzed in this experiment. Here are some things noticed by 
+listening to the audio files.
+
+1. Person 1, 2, and 5 are male
+2. Person 3, and 4 are female
+3. Person 1, and 2 sound very similar. They maybe the same person.
+4. Person 5 has the deepest voice
+5. Person 4 has the highest voice
+6. Not all audio files finish their sentences, some of them are cut mid sentences
+
+
+By listening to the audio files and looking at the numbers, serveral conclusions can be drawn. 
+1. As person 1 and 2 sound very similar, they have the lowest DTW between each other.
+
+2. Person 5 has the lowest DTWs with the other males speakers (speaker 1 and 2). While having 
+the highest DTW with person 3 who has the highest voice.
+
+3. Interstingly, although spesker 3 has its lowest DTW with the other female speaker (speaker 4),
+speaker 4 has its highest DTW with speaker 4.
+
+4. speaker 1, 2 and 4 speak faster than the other speakers, and are cut off without being able to 
+finish their sentences around the same point. This could pontentially mean that cadence in speak 
+has an effect on DTW.
+
+
+Next, I experimented with the length of the audio file. Only the audio time for speaker 1 and 2 were extended.
+The general trend was that was described before remained the same. However, the DTW numbers significanlly increased.
+
+Reference Speaker: Speaker #1
+Speaker #2: DTW = 12354.0716
+Speaker #3: DTW = 15317.9654
+Speaker #4: DTW = 15043.7642
+Speaker #5: DTW = 13270.3463
+
+Reference Speaker: Speaker #5
+Speaker #1: DTW = 13270.3463
+Speaker #2: DTW = 11653.8567
+Speaker #3: DTW = 7169.1162
+Speaker #4: DTW = 4459.6315
+
+Based on the data presented above, as the length of audio increases so does the DTW. This makes sense, as the DTW table 
+gets larger, hence there would be more cost values in the path from the bottom right corner to the top left corner.
+
+Next, I cut down the audio so that every speaker was just syaing the phrase "I can't remember". The result, is very similar
+to the result of the initial time stamps. However, all the DTW values have slightly decreased.
+
+For my final test, I chnaged the audio time stamp of speak 1 and 5 to say something other "I can't remember". The result is
+shown below. (The audio length are similar to each other). NOTE: Speakers 2,3 and 4 are all saying I can't remember.
+
+Reference Speaker: Speaker #1
+Speaker #2: DTW = 11135.4714
+Speaker #3: DTW = 13177.1345
+Speaker #4: DTW = 12597.4455
+Speaker #5: DTW = 15041.7149
+
+Reference Speaker: Speaker #2
+Speaker #1: DTW = 11135.4714
+Speaker #3: DTW = 6409.4302
+Speaker #4: DTW = 2641.3379
+Speaker #5: DTW = 13998.8672
+
+Reference Speaker: Speaker #3
+Speaker #1: DTW = 13177.1345
+Speaker #2: DTW = 6409.4302
+Speaker #4: DTW = 5290.6839
+Speaker #5: DTW = 15000.3118
+
+Reference Speaker: Speaker #4
+Speaker #1: DTW = 12597.4455
+Speaker #2: DTW = 2641.3379
+Speaker #3: DTW = 5290.6839
+Speaker #5: DTW = 14578.9698
+
+Reference Speaker: Speaker #5
+Speaker #1: DTW = 15041.7149
+Speaker #2: DTW = 13998.8672
+Speaker #3: DTW = 15000.3118
+Speaker #4: DTW = 14578.9698
+
+Analysis:
+
+1. The DTW of speaker 1 increased significanlly, howvever, it still shares its lowest DTW with speaker 2. 
+2. Speaker has its lowest DTWs with speakers 3 and 4 who are saying the same phrase. Then sharing the 
+second highest with speaker 1 who is saying something different.
+3. What is said in the audio file is more important than the voice that says it.
+4. In case of voice verification, DTW can still identify the correct speaker as long as all of the refrence
+audio are saying same thing even if the test voice says something different. 
+    a. I would assume in this scenario the DTW would focus more on other features of the speach, such as cadence
+       tone, etc.

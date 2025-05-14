@@ -1,0 +1,111 @@
+MaxIter = 20   #Speakers = 32
+
+M = 1           Accuracy = 0.96875
+M = 2           Accuracy = 1.0
+M = 3           Accuracy = 0.9375
+M = 4           Accuracy = 0.96875
+M = 5           Accuracy = 0.96875
+M = 6           Accuracy = 1.0
+M = 7           Accuracy = 1.0
+M = 8           Accuracy = 1.0
+M = 10          Accuracy = 1.0
+M = 15          Accuracy = 1.0
+M = 20          Accuracy = 1.0
+M = 25          Accuracy = 1.0
+M = 30          Accuracy = 1.0
+
+
+Analysis:
+Based on the result of this experiment, the general trend is that as the number of Mixture components (M) 
+increases, the accuracy increases. However, it should be noted that the accuracy fluctuates with lower M 
+values (1 to 5); this indicates that the data is the complexity of the data cannot be captured with too 
+few Ms. But it can be noticed beyond 5 Ms, the accuracy stabilizes at 1.0 (100%). 
+The 1.0 accuracy achieved with M=2 can be due to a local minima.
+
+----------------------------------------------------------------------
+M = 8           #Speakers = 32
+
+MaxIter = 1    Accuracy = 0.96875
+MaxIter = 2    Accuracy = 0.9375
+MaxIter = 3    Accuracy = 0.96875
+MaxIter = 4    Accuracy = 1.0
+MaxIter = 5    Accuracy = 1.0
+MaxIter = 10   Accuracy = 1.0
+MaxIter = 20   Accuracy = 1.0
+MaxIter = 30   Accuracy = 1.0
+
+
+Analysis:
+Once again, the general trend that can be seen is that as the number of iterations (MaxInter) increases, the 
+Accuracy also increases. Similar to the previous experiment, at the beginning (at low MaxInter), the data 
+fluctuates (from 1 to 3); this is because, with few interactions, the model cannot adjust its parameters 
+and learn the data pattern. However, it stabilizes beyond 3 indications at 1.0 (100%) accuracy.  
+
+----------------------------------------------------------------------
+M = 3          MaxIter = 2
+
+#Speakers = 1   Accuracy = 1.0
+#Speakers = 5   Accuracy = 1.0
+#Speakers = 10  Accuracy = 1.0
+#Speakers = 20  Accuracy = 1.0
+#Speakers = 25  Accuracy = 0.96
+#Speakers = 30  Accuracy = 0.93333
+#Speakers = 32  Accuracy = 0.90625
+
+Analysis:
+In this experiment, the number of the mixture (M) of 3 and the number of iterations (MaxIter) of 2 were chosen as these 
+two resulted in the worst performances in the previous two tests. This is done to see the effect of decreasing the number 
+of speakers. Otherwise, all tests would have resulted in 1.0 accuracy. 
+The result of this test shows that as the number of speakers decreases, the accuracy increases. 32 speakers have
+the lowest accuracy, followed by 30 and 25 speakers, respectively. With any number of speakers less than 20, achieve a 
+1.0 (100%) accuracy. This is because the model needs to learn fewer patterns with a lower number of classes. Therefore,
+the complexity of the data is lower, and the model can achieve a higher accuracy.
+
+----------------------------------------------------------------------
+For my final test I made a 3d graph that compared Ms with MaxIter and Accuracy. The code to create this graph is commented
+in the main function of the a3_gmm.py file
+
+Overall, the plane has a logarithmic shape, with an asymptode at 1. The trend shows that as M and MaxInter increase so does 
+the accuracy. However, this graph also shows that the effect of max iter is more that M. When just increasing M a linear 
+pattern can be seen, while with MaxIter the relationship is logarithmic.
+
+----------------------------------------------------------------------
+Additional Questions
+
+Q: How might you improve the classification accuracy of the Gaussian mixtures, without adding more
+   training data?
+
+Based on the experiments done above, increasing the number of interactions and the number of Mixture 
+components tend to increase classification accuracy without the need to add more training data.
+However, it should be noted that a high number of either of these two hyperparameters (M or MaxIter) 
+can lead to the model overfitting to the training data and hence cause the accuracy of the test data 
+to drop.
+
+Another factor that can affect the model's accuracy is the initial values selected for the GMM training 
+(for the Omega, Sigma, and mu). Therefore, changing the initial selected values might lead to an improvement 
+in the model's accuracy.
+
+Another method of increasing accuracy commonly used is Dimensionality reduction. By using techniques such
+as PCA analysis on the input MFCC files, we can reduce the dimension of the data, remove noise and remove 
+less relevant features. This would help the model understand the underlying pattern in the data better, 
+leading to higher accuracy.
+
+----------------------------------------------------------------------
+Q: When would your classifier decide that a given test utterance comes from none of the trained speaker
+   models, and how would your classifier come to this decision?
+
+We can set a threshold for the log-likelihood; if the highest log-likelihoods are less than the threshold
+value, this would indicate that the utterance comes from none of the trained speakers. The difficulty with
+this method is determining the threshold, which would require some experimentation.
+
+
+----------------------------------------------------------------------
+Can you think of some alternative methods for doing speaker identification that don’t use Gaussian 
+mixtures?
+
+There are few other methods/models that can be used for this task such as:
+   - KNN
+   - K-means
+   - SVM(Support Vector Machines)
+   - CNN (Convolutional Nueral Networks)
+
